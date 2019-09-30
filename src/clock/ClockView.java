@@ -10,7 +10,6 @@ public class ClockView extends javax.swing.JFrame {
     
     public ClockView() {
         initComponents();
-        repaint();
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -19,7 +18,7 @@ public class ClockView extends javax.swing.JFrame {
                 repaint();
             }
         };
-        timer.schedule(timerTask, 0, 1000);
+        timer.schedule(timerTask, 0, 50);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,22 +26,42 @@ public class ClockView extends javax.swing.JFrame {
     private void initComponents() {
 
         clock = new clock.ClockModel();
+        numberTypeComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        numberTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Decimal", "Roman" }));
+        numberTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberTypeComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(clock, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(numberTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(390, Short.MAX_VALUE))
+            .addComponent(clock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(clock, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(numberTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(clock, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void numberTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberTypeComboBoxActionPerformed
+        clock.setNumberType(numberTypeComboBox.getItemAt(numberTypeComboBox.getSelectedIndex()));
+    }//GEN-LAST:event_numberTypeComboBoxActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -52,23 +71,14 @@ public class ClockView extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClockView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClockView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClockView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClockView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClockView().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> { new ClockView().setVisible(true); });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private clock.ClockModel clock;
+    private javax.swing.JComboBox<String> numberTypeComboBox;
     // End of variables declaration//GEN-END:variables
 }
