@@ -89,12 +89,10 @@ public class ClockController extends JPanel{
         int recY = y + (int)(sine*220*propY)-height/2;
         return new Rectangle(recX, recY, width, height);
     }
-    
+
     private Font getFontToNumberToBackground(String font, int size) {
         return new Font(font, 1, size);
     }
-    
-    
     
     private void clockHand(Graphics2D g2d, int x, int y, double propX, double propY, double angle, int length, int thickness, Color color){
         g2d.setColor(color);
